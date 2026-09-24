@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cottonwood Ops</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="backdrop" id="backdrop" aria-hidden="true"></div>
+<div class="shell">
+<aside id="rail">
+  <div class="brand">Cottonwood <i>Ops</i></div>
+  <div class="profile">
+    <div class="avatar" aria-hidden="true">SL</div>
+    <div>
+      <strong>Stephen Lee</strong>
+      <span>Operations Manager</span>
+    </div>
+  </div>
+  <nav id="nav" aria-label="Primary"></nav>
+  <button class="pandora" type="button" data-go="pandora">▶ Play Pandora</button>
+  <div class="shortcuts">
+    <div class="label">Shortcuts</div>
+    <a href="https://chatgpt.com" target="_blank" rel="noreferrer">ChatGPT</a>
+    <a href="https://outlook.office.com" target="_blank" rel="noreferrer">Outlook</a>
+    <a href="https://www.facebook.com" target="_blank" rel="noreferrer">Facebook</a>
+    <a href="https://www.tiktok.com" target="_blank" rel="noreferrer">TikTok</a>
+    <a href="https://www.amazon.com" target="_blank" rel="noreferrer">Amazon</a>
+    <a href="https://www.google.com" target="_blank" rel="noreferrer">Google</a>
+  </div>
+</aside>
+
+<main>
+  <button class="btn ghost menu-btn" type="button" id="menuBtn">Menu</button>
+
+  <!-- Page bar lives INSIDE scrolling main (not fixed) -->
+  <div class="pagebar" id="pagebar">
+    <div class="crumb" id="crumb">Cottonwood</div>
+    <h1 id="title">Operations Dashboard</h1>
+    <div class="actions">
+      <button class="btn ghost sm" type="button" data-go="quick">Quick update</button>
+      <button class="btn sm" type="button" data-go="stl">STL roster</button>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <section class="page on" id="p-overview" aria-label="Overview">
+      <!-- Personality layer: buck vs pelican -->
+      <div class="mascot" aria-hidden="true">
+        <svg viewBox="0 0 900 84" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="ground" x1="0" x2="1">
+              <stop offset="0" stop-color="#2a3558" stop-opacity=".0"/>
+              <stop offset=".5" stop-color="#3a4a72" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#2a3558" stop-opacity=".0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 62 H900" stroke="url(#ground)" stroke-width="2"/>
+          <g class="dust">
+            <circle cx="430" cy="58" r="3" fill="#c9a227" opacity=".5"/>
+            <circle cx="442" cy="54" r="2" fill="#3ecfbf" opacity=".45"/>
+            <circle cx="455" cy="60" r="2.5" fill="#e8ecf4" opacity=".35"/>
+          </g>
+          <g class="apple">
+            <circle cx="0" cy="0" r="7" fill="#f07167"/>
+            <path d="M0 -7 C2 -12 6 -11 5 -7" fill="none" stroke="#5ee0a0" stroke-width="1.5"/>
+          </g>
+          <g class="buck" fill="none" stroke="#e8ecf4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 50 C28 42 48 40 62 46 C70 38 86 40 92 48 C98 56 90 62 78 62 L34 62 C24 62 16 56 20 50Z"/>
+            <path d="M88 46 C96 40 104 36 110 42"/>
+            <path d="M100 34 L96 22 M100 34 L108 20 M104 28 L112 24"/>
+            <path d="M36 62 L32 74 M48 62 L50 74 M66 62 L64 74 M78 62 L82 74"/>
+            <circle cx="108" cy="42" r="1.4" fill="#c9a227" stroke="none"/>
+          </g>
+          <g class="pelican" fill="none" stroke="#3ecfbf" stroke-width="1.6" stroke-linecap="round">
+            <path d="M10 48 C22 36 40 34 54 42 C62 34 78 38 82 48 C70 58 40 60 22 56Z"/>
+            <path d="M82 48 L104 54 L82 56Z" fill="rgba(62,207,191,.18)"/>
+            <path d="M28 44 C18 28 8 22 4 28 C12 30 20 38 28 44"/>
+            <circle cx="58" cy="42" r="1.3" fill="#e8ecf4" stroke="none"/>
+          </g>
+        </svg>
+        <div class="cap">Buck · apple heist · pelican in pursuit</div>
+      </div>
+
+      <!-- Centered enlarged STL tiles (not profile) -->
+      <div class="stl-strip">
+        <div class="tiles" id="stlOverview"></div>
+      </div>
+
+      <!-- KPI section kept visually the same -->
+      <div class="kpis">
+        <article class="card">
+          <div class="label">Occupancy</div>
+          <div class="value">94.6%</div>
+          <div class="up">+40 bps</div>
+        </article>
+        <article class="card">
+          <div class="label">NOI</div>
+          <div class="value">$20.4M</div>
+          <div class="up">+2.1%</div>
+        </article>
+        <article class="card">
+          <div class="label">Rent</div>
+          <div class="value">$1,548</div>
+          <div class="up">+$18</div>
+        </article>
+        <article class="card">
+          <div class="label">WOs</div>
+          <div class="value">312</div>
+          <div class="down">18 SLA</div>
+        </article>
+      </div>
+
+      <!-- Lightweight SVG charts -->
+      <div class="charts">
+        <article class="card chart-card">
+          <div class="label">Portfolio trend</div>
+          <h3>Occupancy & NOI pulse</h3>
+          <p class="hint">Trailing 8 months · SVG only</p>
+          <svg class="chart-svg" viewBox="0 0 400 160" role="img" aria-label="Occupancy and NOI trend chart">
+            <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+              <line x1="32" y1="20" x2="32" y2="130"/><line x1="32" y1="130" x2="390" y2="130"/>
+              <line x1="32" y1="95" x2="390" y2="95"/><line x1="32" y1="60" x2="390" y2="60"/>
+            </g>
+            <polyline fill="none" stroke="#3ecfbf" stroke-width="2.5"
+              points="40,88 90,80 140,74 190,70 240,62 290,58 340,50 380,46"/>
+            <polyline fill="none" stroke="#c9a227" stroke-width="2.5" stroke-dasharray="5 4"
+              points="40,110 90,104 140,98 190,92 240,86 290,78 340,72 380,66"/>
+            <g fill="#8b95ad" font-size="10" font-family="DM Sans,sans-serif">
+              <text x="40" y="146">Feb</text><text x="140" y="146">Apr</text>
+              <text x="240" y="146">Jun</text><text x="340" y="146">Aug</text>
+            </g>
+          </svg>
+          <div class="legend"><span><i style="background:#3ecfbf"></i>Occupancy</span><span><i style="background:#c9a227"></i>NOI index</span></div>
+        </article>
+        <article class="card chart-card">
+          <div class="label">Work orders</div>
+          <h3>Open by priority</h3>
+          <p class="hint">Current desk load</p>
+          <svg class="chart-svg" viewBox="0 0 280 160" role="img" aria-label="Work order priority bars">
+            <g font-family="DM Sans,sans-serif" font-size="11" fill="#8b95ad">
+              <rect x="70" y="28" width="160" height="22" rx="6" fill="rgba(240,113,103,.25)"/><rect x="70" y="28" width="118" height="22" rx="6" fill="#f07167"/><text x="12" y="43">High</text><text x="238" y="43" fill="#e8ecf4">48</text>
+              <rect x="70" y="64" width="160" height="22" rx="6" fill="rgba(201,162,39,.2)"/><rect x="70" y="64" width="140" height="22" rx="6" fill="#c9a227"/><text x="12" y="79">Med</text><text x="238" y="79" fill="#e8ecf4">96</text>
+              <rect x="70" y="100" width="160" height="22" rx="6" fill="rgba(62,207,191,.18)"/><rect x="70" y="100" width="90" height="22" rx="6" fill="#3ecfbf"/><text x="12" y="115">Low</text><text x="238" y="115" fill="#e8ecf4">168</text>
+            </g>
+          </svg>
+        </article>
+      </div>
+    </section>
+
+    <section class="page" id="p-packages" aria-label="Package versions">
+      <div class="pkg-grid">
+        <article class="card pkg">
+          <div class="label">Package</div>
+          <h3 style="margin:6px 0;font-size:1.05rem">Ops board</h3>
+          <div class="row"><span>Status</span><span style="color:var(--ok)">live</span></div>
+          <div class="row"><span>Accent</span><span>Tide / teal</span></div>
+          <svg class="spark chart-svg" viewBox="0 0 240 72" aria-hidden="true">
+            <defs><linearGradient id="a1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3ecfbf" stop-opacity=".45"/><stop offset="1" stop-color="#3ecfbf" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0 50 L30 44 L60 48 L90 30 L120 36 L150 22 L180 28 L210 16 L240 20 L240 72 L0 72Z" fill="url(#a1)"/>
+            <polyline fill="none" stroke="#3ecfbf" stroke-width="2" points="0,50 30,44 60,48 90,30 120,36 150,22 180,28 210,16 240,20"/>
+          </svg>
+        </article>
+        <article class="card pkg">
+          <div class="label">Package</div>
+          <h3 style="margin:6px 0;font-size:1.05rem">Safety desk</h3>
+          <div class="row"><span>Status</span><span>ready</span></div>
+          <div class="row"><span>Accent</span><span>Gold</span></div>
+          <svg class="spark chart-svg" viewBox="0 0 240 72" aria-hidden="true">
+            <rect x="16" y="36" width="22" height="28" rx="4" fill="#c9a227" opacity=".85"/>
+            <rect x="48" y="28" width="22" height="36" rx="4" fill="#c9a227" opacity=".7"/>
+            <rect x="80" y="20" width="22" height="44" rx="4" fill="#c9a227"/>
+            <rect x="112" y="32" width="22" height="32" rx="4" fill="#c9a227" opacity=".75"/>
+            <rect x="144" y="24" width="22" height="40" rx="4" fill="#c9a227" opacity=".9"/>
+            <rect x="176" y="40" width="22" height="24" rx="4" fill="#c9a227" opacity=".65"/>
+            <rect x="208" y="30" width="22" height="34" rx="4" fill="#c9a227" opacity=".8"/>
+          </svg>
+        </article>
+        <article class="card pkg">
+          <div class="label">Package</div>
+          <h3 style="margin:6px 0;font-size:1.05rem">Budget pulse</h3>
+          <div class="row"><span>Status</span><span>preview</span></div>
+          <div class="row"><span>Chart</span><span>donut SVG</span></div>
+          <svg class="spark chart-svg" viewBox="0 0 240 72" aria-hidden="true">
+            <g transform="translate(120,38)">
+              <circle r="26" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="10"/>
+              <circle r="26" fill="none" stroke="#3ecfbf" stroke-width="10" stroke-dasharray="100 63" stroke-dashoffset="25" transform="rotate(-90)"/>
+              <circle r="26" fill="none" stroke="#c9a227" stroke-width="10" stroke-dasharray="40 123" stroke-dashoffset="-75" transform="rotate(-90)"/>
+              <circle r="26" fill="none" stroke="#f07167" stroke-width="10" stroke-dasharray="23 140" stroke-dashoffset="-115" transform="rotate(-90)"/>
+            </g>
+          </svg>
+        </article>
+        <article class="card pkg">
+          <div class="label">Package</div>
+          <h3 style="margin:6px 0;font-size:1.05rem">Leasing lane</h3>
+          <div class="row"><span>Status</span><span>draft</span></div>
+          <div class="row"><span>Executed</span><span>41</span></div>
+          <svg class="spark chart-svg" viewBox="0 0 240 72" aria-hidden="true">
+            <polyline fill="none" stroke="#5ee0a0" stroke-width="2.5" points="8,55 40,48 72,50 104,36 136,40 168,24 200,28 232,18"/>
+            <circle cx="232" cy="18" r="3.5" fill="#5ee0a0"/>
+          </svg>
+        </article>
+      </div>
+      <article class="card" style="margin-top:12px">
+        <div class="label">Adoption notes</div>
+        <div class="row"><span>Command Overview</span><span>Default desk</span></div>
+        <div class="row"><span>Safety desk</span><span>JSA + risk board</span></div>
+        <div class="row"><span>Budget pulse</span><span>Chem / demin spend</span></div>
+        <div class="row"><span>Leasing lane</span><span>Executed + pipeline</span></div>
+        <p style="color:var(--muted);font-size:13px;margin-top:12px;line-height:1.55">
+          Package versions are lightweight layout presets. Charts above are pure SVG —
+          no image packs. Scroll this working page: the title bar sits in document flow
+          and leaves the viewport with the content (not a fixed chrome bar).
+        </p>
+        <p style="color:var(--muted);font-size:13px;margin-top:10px;line-height:1.55">
+          Use Quick update to stash shift notes in localStorage, jump STL roster for
+          William McGallion (D Shift) and John Pettier (B Shift), and keep Pandora /
+          shortcut links in the rail for the control room.
+        </p>
+        <div style="height:280px" aria-hidden="true"></div>
+      </article>
+    </section>
+
+    <section class="page" id="p-quick" aria-label="Quick update">
+      <article class="card">
+        <div class="label">Quick update</div>
+        <p class="hint" style="color:var(--muted);font-size:13px;margin:8px 0 4px">Notes persist in localStorage (<code>cottonwood-quick-v1</code>).</p>
+        <textarea id="note" rows="5" placeholder="Shift note, NOI callout, WO follow-up…"></textarea>
+        <input id="tag" placeholder="Tag (e.g. STL, leasing, safety)">
+        <button class="btn" type="button" id="saveBtn">Save tracking data</button>
+        <div id="status" style="margin-top:10px;font-size:13px;color:var(--teal)"></div>
+        <div id="log" style="margin-top:6px;font-size:13px;color:var(--muted)"></div>
+      </article>
+    </section>
+
+    <section class="page" id="p-stl" aria-label="STL shift">
+      <article class="card">
+        <div class="label">STL shift tiles</div>
+        <p style="color:var(--muted);font-size:13px;margin:8px 0 4px">Shift team leads — schedule & roster links jump here.</p>
+        <div class="stl-strip" style="margin-top:12px">
+          <div class="tiles" id="stlPage"></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="label">Schedule anchors</div>
+        <div class="row" id="sched-d"><span>D Shift · Days</span><span>William McGallion · STL</span></div>
+        <div class="row" id="sched-b"><span>B Shift · Nights</span><span>John Pettier · STL</span></div>
+        <div class="row"><span>Roster</span><span>Active STLs only (profile excluded)</span></div>
+      </article>
+    </section>
+
+    <section class="page" id="p-properties" aria-label="Properties">
+      <article class="card">
+        <div class="label">Properties</div>
+        <div class="row"><span>Ridgeview</span><span>96.3%</span></div>
+        <div class="row"><span>Cottonwood Flats</span><span>94.1%</span></div>
+        <div class="row"><span>Sabine Court</span><span>93.8%</span></div>
+        <div class="row"><span>Harbor Line</span><span>95.2%</span></div>
+      </article>
+    </section>
+
+    <section class="page" id="p-leasing" aria-label="Leasing">
+      <article class="card">
+        <div class="label">Leasing</div>
+        <div class="value">41 executed</div>
+        <div class="up">+6 vs prior month</div>
+        <div class="row" style="margin-top:12px"><span>Pipeline</span><span>28 tour / 12 app</span></div>
+        <div class="row"><span>Avg days vacant</span><span>11.4</span></div>
+      </article>
+    </section>
+
+    <section class="page" id="p-work" aria-label="Work orders">
+      <article class="card">
+        <div class="label">Work orders</div>
+        <div class="row"><span>WO-18421</span><span style="color:var(--rose)">High</span></div>
+        <div class="row"><span>WO-18408</span><span style="color:var(--gold)">Med</span></div>
+        <div class="row"><span>WO-18390</span><span style="color:var(--teal)">Low</span></div>
+        <div class="row"><span>WO-18377</span><span style="color:var(--rose)">High · SLA</span></div>
+      </article>
+    </section>
+
+    <section class="page" id="p-pandora" aria-label="Play Pandora">
+      <article class="card">
+        <div class="label">Play Pandora</div>
+        <p style="margin:12px 0;color:var(--muted);font-size:14px">Control-room soundtrack — opens Pandora in a new tab.</p>
+        <p><a class="btn" href="https://www.pandora.com" target="_blank" rel="noreferrer">Open Pandora</a></p>
+      </article>
+    </section>
+  </div>
+</main>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
